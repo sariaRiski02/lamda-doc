@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LamdaPHP Documentation - Realtime Rendering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-navy { background-color: #0f172a; }
+        .text-navy { color: #0f172a; }
+        .border-navy { border-color: #1e293b; }
+        /* Syntax Highlight Colors */
+        .token.keyword { color: #c678dd; }
+        .token.function { color: #61afef; }
+        .token.string { color: #98c379; }
+        .token.variable { color: #e06c75; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal text-gray-800">
+
+    <nav class="bg-navy p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <img src="images/logo.png" alt="LamdaPHP Logo" class="h-10 w-10 object-contain">
+                <span class="text-white text-2xl font-bold tracking-tighter">Lamda<span class="text-blue-400">PHP</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="#" class="hover:text-white transition">Docs</a>
+                <a href="https://github.com/sariariski02/lamdaphp-framework" class="hover:text-white transition"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mx-auto flex flex-wrap py-8 px-4">
+        
+        <aside class="w-full md:w-1/4 pr-8 mb-8">
+            <div class="sticky top-24">
+                
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4">Prologue</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="introduction.html" class="block pl-4 py-1 hover:text-navy transition">Introduction</a></li>
+                    <li><a href="installation.html" class="block pl-4 py-1 hover:text-navy transition">Installation</a></li>
+                    <li><a href="directory.html" class="block pl-4 py-1 hover:text-navy transition">Directory Structure</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">The Basics</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="routing.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Routing</a></li>
+                    <li><a href="controller.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Controllers</a></li>
+                    <li><a href="template.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Views & Templates</a></li>
+                    <li><a href="render.html" class="block pl-4 py-1 text-blue-600 border-l-2 border-blue-600 -ml-[2px] font-semibold">Realtime Rendering</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="w-full md:w-3/4">
+            <section id="realtime-rendering">
+                <h1 class="text-4xl font-extrabold text-navy mb-4">Realtime Partial Rendering</h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    LamdaPHP menggunakan pendekatan <strong>Server-Side HTML Injection</strong> untuk fitur realtime-nya. Ini berarti server merender potongan HTML (Partial View) yang sudah berisi data terbaru, lalu mengirimkannya ke browser untuk menggantikan tampilan lama secara otomatis.
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-10">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-blue-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-blue-700">
+                                <strong>Keuntungan:</strong> Anda tidak perlu menulis logika rendering Javascript di frontend. Cukup gunakan syntax <code>@foreach</code> PHP biasa di file view Anda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold text-navy mb-4 flex items-center">
+                        <span class="bg-blue-600 text-white h-8 w-8 rounded-full flex items-center justify-center text-sm mr-3 font-mono">1</span>
+                        Buat Partial View (Component)
+                    </h2>
+                    <p class="mb-4">
+                        Pisahkan bagian HTML yang ingin di-update secara realtime ke file terpisah. Ini memudahkan controller untuk merender hanya bagian ini saja.
+                    </p>
+                    
+                    <div class="bg-slate-900 rounded-lg overflow-hidden shadow-xl">
+                        <div class="bg-slate-800 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-700">resources/views/components/_annon.lamda.php</div>
+                        <pre class="p-4 text-sm text-gray-300 font-mono overflow-x-auto leading-relaxed">
+<span class="text-gray-500">&lt;!-- Loop PHP standar, tidak perlu template JS --&gt;</span>
+<span class="token keyword">@foreach</span>($annon <span class="token keyword">as</span> $a)
+    &lt;div class="bg-white p-4 rounded-lg border-l-4 border-indigo-500"&gt;
+        &lt;h3 class="font-bold text-lg"&gt;{{ $a['title'] }}&lt;/h3&gt;
+        &lt;p class="text-sm mt-2"&gt;
+            {{ substr($a['content'], 0, 20) }}....
+        &lt;/p&gt;
+    &lt;/div&gt;
+<span class="token keyword">@endforeach</span></pre>
+                    </div>
+                </div>
+
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold text-navy mb-4 flex items-center">
+                        <span class="bg-blue-600 text-white h-8 w-8 rounded-full flex items-center justify-center text-sm mr-3 font-mono">2</span>
+                        Siapkan Container di View Utama
+                    </h2>
+                    <p class="mb-4">
+                        Di halaman utama, gunakan atribut <code>data-bind="kunci_unik"</code> pada elemen pembungkus. LamdaPHP akan mencari elemen ini untuk menginjeksikan HTML baru.
+                    </p>
+                    
+                    <div class="bg-slate-900 rounded-lg overflow-hidden shadow-xl">
+                        <div class="bg-slate-800 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-700">resources/views/beranda.lamda.php</div>
+                        <pre class="p-4 text-sm text-gray-300 font-mono overflow-x-auto">
+<span class="text-gray-500">&lt;!-- Atribut data-bind="annon" adalah target update --&gt;</span>
+&lt;div class="space-y-4" <span class="token keyword">data-bind</span>=<span class="token string">"annon"</span>&gt;
+    
+    <pre class="p-4 text-sm text-gray-300 font-mono overflow-x-auto leading-relaxed">
+<span class="token keyword">@foreach</span>($annon <span class="token keyword">as</span> $a)
+    &lt;div class="bg-white p-4 rounded-lg border-l-4 border-indigo-500"&gt;
+        &lt;h3 class="font-bold text-lg"&gt;{{ $a['title'] }}&lt;/h3&gt;
+        &lt;p class="text-sm mt-2"&gt;
+            {{ substr($a['content'], 0, 20) }}....
+        &lt;/p&gt;
+    &lt;/div&gt;
+<span class="token keyword">@endforeach</span></pre>
+
+&lt;/div&gt;</pre>
+                    </div>
+                </div>
+
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold text-navy mb-4 flex items-center">
+                        <span class="bg-blue-600 text-white h-8 w-8 rounded-full flex items-center justify-center text-sm mr-3 font-mono">3</span>
+                        Controller Logic
+                    </h2>
+                    <p class="mb-4">
+                        Di controller, cek apakah request adalah permintaan realtime. Jika ya, render partial view ke dalam string dan kirimkan menggunakan <code>Response::sendRealtime</code>.
+                    </p>
+                    
+                    <div class="bg-slate-900 rounded-lg overflow-hidden shadow-xl mb-6">
+                        <div class="bg-slate-800 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-700">App/Http/Controllers/AnnoncementController.php</div>
+                        <pre class="p-4 text-sm text-gray-300 font-mono overflow-x-auto">
+<span class="token keyword">public function</span> <span class="token function">beranda</span>() {
+    <span class="token variable">$annon</span> = Annoncement::all();
+
+    <span class="text-gray-500">// 1. Render partial view ke variabel string</span>
+    <span class="token variable">$view</span> = <span class="token variable">$this</span>->view('components._annon', compact('annon'));
+
+    <span class="text-gray-500">// 2. Cek Realtime Request</span>
+    <span class="token keyword">if</span> (Request::realtime()) {
+        <span class="text-gray-500">// Kirim array: key 'annon' harus cocok dengan data-bind="annon" di HTML</span>
+        <span class="token keyword">return</span> Response::sendRealtime(['annon' => <span class="token variable">$view</span>]);
+    }
+
+    <span class="text-gray-500">// 3. Render Normal (Halaman penuh)</span>
+    <span class="token keyword">return</span> <span class="token variable">$this</span>->view('beranda', compact('annon'));
+}</pre>
+                    </div>
+
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                        <h4 class="font-bold text-green-700 mb-2">Flow Eksekusi:</h4>
+                        <ol class="list-decimal list-inside text-sm text-green-800 space-y-1">
+                            <li>User mengakses halaman, controller me-return view <code>beranda</code> penuh.</li>
+                            <li>Client secara otomatis melakukan koneksi realtime.</li>
+                            <li>Jika ada trigger update, controller menjalankan blok <code>if(Request::realtime())</code>.</li>
+                            <li>Variable <code>$view</code> berisi HTML matang (bukan JSON data mentah).</li>
+                            <li>Browser menerima HTML tersebut dan langsung menukar isi <code>div[data-bind="annon"]</code>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
+                <a href="views.html" class="flex items-center group">
+                    <div>
+                        <span class="block text-sm text-gray-400">Previous</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600"><i class="fas fa-arrow-left mr-2"></i> Views & Templates</span>
+                    </div>
+                </a>
+                <a href="#" class="flex items-center group text-right opacity-50 cursor-not-allowed">
+                    <div>
+                        <span class="block text-sm text-gray-400">Next</span>
+                        <span class="block text-lg font-bold text-navy">CLI Command (Coming Soon)</span>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 LamdaPHP Framework. Developed by Muhammat Rizky Saria.
+        </div>
+    </footer>
+
+</body>
+</html>

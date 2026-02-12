@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LamdaPHP Documentation - Routing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-navy { background-color: #0f172a; }
+        .text-navy { color: #0f172a; }
+        .border-navy { border-color: #1e293b; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal text-gray-800">
+
+    <nav class="bg-navy p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <img src="images/logo.png" alt="LamdaPHP Logo" class="h-10 w-10 object-contain">
+                <span class="text-white text-2xl font-bold tracking-tighter">Lamda<span class="text-blue-400">PHP</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="#" class="hover:text-white transition">Docs</a>
+                <a href="https://github.com/sariariski02/lamdaphp-framework" class="hover:text-white transition"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto flex flex-wrap py-8 px-4">
+        
+        <aside class="w-full md:w-1/4 pr-8 mb-8">
+            <div class="sticky top-24">
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4">Prologue</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="introduction.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Introduction</a></li>
+                    <li><a href="installation.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Installation</a></li>
+                    <li><a href="directory.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Directory Structure</a></li>
+                </ul>
+                
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">The Basics</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="routing.html" class="block pl-4 py-1 text-blue-600 border-l-2 border-blue-600 -ml-[2px] font-semibold">Routing</a></li>
+                    <li><a href="controller.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Controllers</a></li>
+                    <li><a href="template.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Views & Templates</a></li>
+                    <li><a href="render.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Realtime Rendering</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="w-full md:w-3/4">
+            <section id="routing">
+                <h1 class="text-4xl font-extrabold text-navy mb-4">Routing</h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    Routing (perutean) adalah pintu gerbang aplikasi Anda. Di sini Anda mendefinisikan URL apa saja yang bisa diakses dan Controller mana yang akan menanganinya. Semua definisi rute disimpan di file <code>routes/web.php</code>.
+                </p>
+
+                <div class="mb-10">
+                    <h2 class="text-2xl font-bold text-navy mb-4 flex items-center">
+                        <i class="fas fa-route mr-3 text-blue-500"></i> Basic Routing
+                    </h2>
+                    <p class="text-gray-600 mb-4">
+                        Rute paling dasar di LamdaPHP menerima dua argumen: <strong>URI</strong> (alamat URL) dan <strong>Action</strong> (Array berisi Class Controller dan Method-nya).
+                    </p>
+
+                    <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-4">
+                        <div class="flex justify-between items-center bg-slate-900 px-4 py-2 border-b border-slate-700">
+                            <span class="text-xs text-gray-400 font-mono">routes/web.php</span>
+                        </div>
+                        <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-gray-300">
+<span class="text-pink-400">use</span> <span class="text-white">Lamda\Core\Support\Facades\Route</span>;
+<span class="text-pink-400">use</span> <span class="text-white">App\Http\Controllers\GuestController</span>;
+
+<span class="text-gray-500">// Mendaftarkan rute GET ke /beranda</span>
+<span class="text-blue-400">Route</span>::<span class="text-yellow-300">get</span>(<span class="text-green-400">'/beranda'</span>, [<span class="text-white">GuestController</span>::<span class="text-pink-400">class</span>, <span class="text-green-400">'beranda'</span>]);
+</pre>
+                        </div>
+                    </div>
+                    
+                    <ul class="list-disc ml-6 text-gray-600 space-y-2 mt-4">
+                        <li><code>'/beranda'</code>: URL yang akan diakses di browser (contoh: <i>localhost:8000/beranda</i>).</li>
+                        <li><code>GuestController::class</code>: Nama kelas Controller yang akan dipanggil.</li>
+                        <li><code>'beranda'</code>: Nama method (fungsi) di dalam Controller tersebut yang akan dieksekusi.</li>
+                    </ul>
+                </div>
+
+                <hr class="border-gray-200 my-8">
+
+                <div class="mb-10">
+                    <h2 class="text-2xl font-bold text-navy mb-4">Available Router Methods</h2>
+                    <p class="text-gray-600 mb-4">
+                        Router memungkinkan Anda untuk mendaftarkan rute yang merespons berbagai HTTP verbs:
+                    </p>
+                    <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+                        <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-gray-300">
+<span class="text-blue-400">Route</span>::<span class="text-yellow-300">get</span>(<span class="text-green-400">'/news'</span>, [<span class="text-white">NewsController</span>::<span class="text-pink-400">class</span>, <span class="text-green-400">'index'</span>]);
+<span class="text-blue-400">Route</span>::<span class="text-yellow-300">post</span>(<span class="text-green-400">'/news/store'</span>, [<span class="text-white">NewsController</span>::<span class="text-pink-400">class</span>, <span class="text-green-400">'store'</span>]);
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <h2 class="text-2xl font-bold text-navy mb-4 flex items-center">
+                        <i class="fas fa-shield-alt mr-3 text-blue-500"></i> Route Middleware
+                    </h2>
+                    <p class="text-gray-600 mb-4">
+                        Anda juga dapat menyisipkan <strong>Middleware</strong> sebagai argumen ketiga. Ini berguna untuk memproteksi rute agar hanya bisa diakses oleh pengguna yang sudah login (Authenticated).
+                    </p>
+
+                    <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-4">
+                        <div class="flex justify-between items-center bg-slate-900 px-4 py-2 border-b border-slate-700">
+                            <span class="text-xs text-gray-400 font-mono">routes/web.php</span>
+                        </div>
+                        <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-gray-300">
+<span class="text-pink-400">use</span> <span class="text-white">App\Middleware\AuthMiddleware</span>;
+
+<span class="text-gray-500">// Rute ini hanya bisa diakses jika lolos cek AuthMiddleware</span>
+<span class="text-blue-400">Route</span>::<span class="text-yellow-300">get</span>(<span class="text-green-400">'/dashboard'</span>, [<span class="text-white">UserController</span>::<span class="text-pink-400">class</span>, <span class="text-green-400">'index'</span>], <span class="text-white">AuthMiddleware</span>::<span class="text-pink-400">class</span>);
+</pre>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                        <p class="text-sm text-blue-700">
+                            Jika middleware menolak permintaan (misalnya user belum login), eksekusi tidak akan sampai ke Controller.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
+                <a href="structure.html" class="flex items-center group">
+                    <div>
+                        <span class="block text-sm text-gray-400">Previous Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600"><i class="fas fa-arrow-left mr-2"></i> Directory Structure</span>
+                    </div>
+                </a>
+                
+                <a href="#" class="flex items-center group text-right">
+                    <div>
+                        <span class="block text-sm text-gray-400">Next Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600">Controllers <i class="fas fa-arrow-right ml-2"></i></span>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 LamdaPHP Framework. Developed by Muhammat Rizky Saria.
+        </div>
+    </footer>
+
+</body>
+</html>

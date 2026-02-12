@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LamdaPHP Documentation - Directory Structure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-navy { background-color: #0f172a; }
+        .text-navy { color: #0f172a; }
+        .border-navy { border-color: #1e293b; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal text-gray-800">
+
+    <nav class="bg-navy p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <img src="images/logo.png" alt="LamdaPHP Logo" class="h-10 w-10 object-contain">
+                <span class="text-white text-2xl font-bold tracking-tighter">Lamda<span class="text-blue-400">PHP</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="https://github.com/sariariski02/lamdaphp-framework" class="hover:text-white transition"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto flex flex-wrap py-8 px-4">
+        
+        <aside class="w-full md:w-1/4 pr-8 mb-8">
+            <div class="sticky top-24">
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4">Prologue</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="introduction.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Introduction</a></li>
+                    <li><a href="installation.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Installation</a></li>
+                    <li><a href="directory.html" class="block pl-4 py-1 text-blue-600 border-l-2 border-blue-600 -ml-[2px] font-semibold">Directory Structure</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">The Basics</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="routing.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Routing</a></li>
+                    <li><a href="controller.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Controllers</a></li>
+                    <li><a href="template.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Views & Templates</a></li>
+                    <li><a href="render.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Realtime Rendering</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="w-full md:w-3/4">
+            <section id="directory-structure">
+                <h1 class="text-4xl font-extrabold text-navy mb-4">Directory Structure</h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    Memahami struktur direktori adalah langkah awal untuk menguasai LamdaPHP. Framework ini mengadopsi struktur MVC (Model-View-Controller) yang intuitif dan terorganisir.
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                    <div class="flex justify-between items-center bg-slate-900 px-4 py-2 border-b border-slate-700">
+                        <span class="text-xs text-gray-400 font-mono">Project Root</span>
+                    </div>
+                    <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-blue-300">
+Root
+├── <span class="text-yellow-300">app</span>               <span class="text-gray-500">// Logika Inti Aplikasi (Controllers, Models)</span>
+├── <span class="text-yellow-300">public</span>            <span class="text-gray-500">// Entry point (index.php) & aset statis</span>
+├── <span class="text-yellow-300">resources</span>         <span class="text-gray-500">// Views (.lamda.php) & raw assets</span>
+├── <span class="text-yellow-300">routes</span>            <span class="text-gray-500">// Definisi rute URL (web.php)</span>
+├── <span class="text-yellow-300">src</span>               <span class="text-gray-500">// Core System LamdaPHP</span>
+├── <span class="text-yellow-300">storage</span>           <span class="text-gray-500">// Cache, logs, & event queues</span>
+└── <span class="text-yellow-300">vendor</span>            <span class="text-gray-500">// Dependensi Composer</span>
+</pre>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 mt-1">
+                            <span class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-100 text-blue-600 font-bold text-lg">A</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy mb-2">The App Directory</h3>
+                            <p class="text-gray-600 mb-2">
+                                Direktori <code>app/</code> adalah tempat di mana sebagian besar logika aplikasi Anda berada. Folder ini memuat namespace utama aplikasi Anda.
+                            </p>
+                            <ul class="list-disc ml-5 text-gray-600 space-y-1">
+                                <li><strong>Controllers:</strong> Menangani permintaan pengguna.</li>
+                                <li><strong>Models:</strong> Berinteraksi dengan database.</li>
+                                <li><strong>Middleware:</strong> Filter HTTP request sebelum mencapai controller.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 mt-1">
+                            <span class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-100 text-indigo-600 font-bold text-lg">P</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy mb-2">The Public Directory</h3>
+                            <p class="text-gray-600">
+                                Folder <code>public/</code> berisi file <code>index.php</code>, yang merupakan titik masuk (entry point) untuk semua permintaan yang masuk ke aplikasi Anda. Direktori ini juga tempat menyimpan aset publik seperti gambar, JavaScript, dan CSS yang dapat diakses langsung oleh browser.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 mt-1">
+                            <span class="flex items-center justify-center h-10 w-10 rounded-full bg-pink-100 text-pink-600 font-bold text-lg">R</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy mb-2">The Resources Directory</h3>
+                            <p class="text-gray-600">
+                                Direktori <code>resources/</code> berisi file tampilan (views) Anda yang menggunakan ekstensi <code>.lamda.php</code>. Di sini Anda menulis kode HTML yang dicampur dengan sintaks templating engine LamdaPHP.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 mt-1">
+                            <span class="flex items-center justify-center h-10 w-10 rounded-full bg-orange-100 text-orange-600 font-bold text-lg">S</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy mb-2">The Storage Directory</h3>
+                            <p class="text-gray-600 mb-2">
+                                Folder <code>storage/</code> digunakan framework untuk menyimpan file yang dihasilkan secara otomatis.
+                            </p>
+                            <ul class="list-disc ml-5 text-gray-600 space-y-1">
+                                <li><strong>Cache:</strong> Hasil kompilasi view engine untuk performa lebih cepat.</li>
+                                <li><strong>Logs:</strong> File log aplikasi untuk debugging.</li>
+                                <li><strong>Events.queue:</strong> File antrean untuk fitur <i>Server-Sent Events</i> (Realtime).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
+                <a href="installation.html" class="flex items-center group">
+                    <div>
+                        <span class="block text-sm text-gray-400">Previous Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600"><i class="fas fa-arrow-left mr-2"></i> Installation</span>
+                    </div>
+                </a>
+                
+                <a href="#" class="flex items-center group text-right opacity-50 cursor-not-allowed">
+                    <div>
+                        <span class="block text-sm text-gray-400">Next Step</span>
+                        <span class="block text-lg font-bold text-navy">Coming Soon <i class="fas fa-arrow-right ml-2"></i></span>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 LamdaPHP Framework. Developed by Muhammat Rizky Saria.
+        </div>
+    </footer>
+
+</body>
+</html>
