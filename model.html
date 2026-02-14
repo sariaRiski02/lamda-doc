@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LamdaPHP Documentation - Model & Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-navy { background-color: #0f172a; }
+        .text-navy { color: #0f172a; }
+        .border-navy { border-color: #1e293b; }
+        /* Custom scrollbar untuk code block agar lebih rapi */
+        pre::-webkit-scrollbar { height: 8px; }
+        pre::-webkit-scrollbar-track { background: #0f172a; border-radius: 4px; }
+        pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal text-gray-800">
+
+    <nav class="bg-navy p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <img src="images/logo.png" alt="LamdaPHP Logo" class="h-10 w-10 object-contain">
+                <span class="text-white text-2xl font-bold tracking-tighter">Lamda<span class="text-blue-400">PHP</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="https://github.com/sariariski02/lamdaphp-framework" class="hover:text-white transition"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto flex flex-wrap py-8 px-4">
+        
+        <aside class="w-full md:w-1/4 pr-8 mb-8">
+            <div class="sticky top-24">
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4">Prologue</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="index.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Introduction</a></li>
+                    <li><a href="installation.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Installation</a></li>
+                    <li><a href="directory.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Directory Structure</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">The Basics</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="routing.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Routing</a></li>
+                    <li><a href="controller.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Controllers</a></li>
+                    <li><a href="template.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Views & Templates</a></li>
+                    <li><a href="render.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Realtime Rendering</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">Database</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="model.html" class="block pl-4 py-1 text-blue-600 border-l-2 border-blue-600 -ml-[2px] font-semibold">Model & Database</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="w-full md:w-3/4">
+            <section id="model-database">
+                <h1 class="text-4xl font-extrabold text-navy mb-4">Model & Database</h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    Model dalam LamdaPHP digunakan untuk merepresentasikan struktur data dari tabel di database Anda. Framework ini menyediakan kelas dasar <code>Model</code> yang memudahkan interaksi dan manipulasi data secara efisien.
+                </p>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">1. Konfigurasi Database</h3>
+                <p class="text-gray-600 mb-4">
+                    Sebelum menggunakan Model, Anda wajib mengatur konfigurasi koneksi database. Buka file konfigurasi yang terletak di <code>app/config/database.php</code> dan sesuaikan dengan kredensial server Anda.
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                    <div class="flex justify-between items-center bg-slate-900 px-4 py-2 border-b border-slate-700">
+                        <span class="text-xs text-gray-400 font-mono">app/config/database.php</span>
+                    </div>
+                    <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-green-300">
+return [
+    <span class="text-blue-300">'host'</span>     => <span class="text-yellow-300">'127.0.0.1'</span>,
+    <span class="text-blue-300">'database'</span> => <span class="text-yellow-300">'lamda_db'</span>,
+    <span class="text-blue-300">'username'</span> => <span class="text-yellow-300">'root'</span>,
+    <span class="text-blue-300">'password'</span> => <span class="text-yellow-300">''</span>,
+];
+</pre>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">2. Membuat Model via CLI</h3>
+                <p class="text-gray-600 mb-4">
+                    Cara paling cepat untuk membuat Model baru adalah menggunakan perintah CLI (Console) bawaan LamdaPHP. Jalankan perintah berikut di terminal Anda:
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10 p-4 flex items-center gap-3">
+                    <span class="text-gray-400 font-mono text-lg">$</span>
+                    <code class="text-yellow-300 font-mono text-base">php lamda make:model Artikel</code>
+                </div>
+                <p class="text-gray-600 mb-8 -mt-6">
+                    Perintah di atas akan secara otomatis membuat file <code>Artikel.php</code> di dalam folder <code>app/Models/</code>.
+                </p>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">3. Struktur Dasar Model</h3>
+                <p class="text-gray-600 mb-4">
+                    Secara default, sebuah Model di LamdaPHP akan mewarisi kelas core <code>Model</code>. Anda bisa mendefinisikan nama tabel secara eksplisit jika nama tabel di database berbeda dengan nama kelas.
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                    <div class="flex justify-between items-center bg-slate-900 px-4 py-2 border-b border-slate-700">
+                        <span class="text-xs text-gray-400 font-mono">app/Models/Artikel.php</span>
+                    </div>
+                    <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-blue-300">
+<span class="text-pink-400">&lt;?php</span>
+
+<span class="text-pink-400">namespace</span> App\Models;
+
+<span class="text-pink-400">use</span> Lamda\Core\Model\Model;
+
+<span class="text-pink-400">class</span> <span class="text-yellow-300">Artikel</span> <span class="text-pink-400">extends</span> Model
+{
+    <span class="text-gray-500">// Tentukan nama tabel (opsional, default mengambil nama kelas)</span>
+    <span class="text-pink-400">protected</span> $table = <span class="text-yellow-300">'artikel'</span>;
+    
+    <span class="text-gray-500">// Tambahkan method kustom untuk query spesifik</span>
+    <span class="text-pink-400">public function</span> <span class="text-yellow-300">getArtikelPopuler</span>()
+    {
+        <span class="text-pink-400">return</span> $this->query(<span class="text-yellow-300">"SELECT * FROM {$this->table} ORDER BY views DESC LIMIT 5"</span>);
+    }
+}
+</pre>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">4. Menggunakan Model di Controller</h3>
+                <p class="text-gray-600 mb-4">
+                    Setelah model dibuat, Anda dapat menginisialisasinya di dalam Controller untuk mengambil data dan meneruskannya ke View.
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                    <div class="flex justify-between items-center bg-slate-900 px-4 py-2 border-b border-slate-700">
+                        <span class="text-xs text-gray-400 font-mono">app/Controllers/ArtikelController.php</span>
+                    </div>
+                    <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-blue-300">
+<span class="text-pink-400">&lt;?php</span>
+
+<span class="text-pink-400">namespace</span> App\Controllers;
+
+<span class="text-pink-400">use</span> Lamda\Core\Http\Controller;
+<span class="text-pink-400">use</span> App\Models\Artikel;
+
+<span class="text-pink-400">class</span> <span class="text-yellow-300">ArtikelController</span> <span class="text-pink-400">extends</span> Controller
+{
+    <span class="text-pink-400">public function</span> <span class="text-yellow-300">index</span>()
+    {
+        $artikelModel = <span class="text-pink-400">new</span> Artikel();
+        
+        <span class="text-gray-500">// Mengambil semua data menggunakan method bawaan core Model</span>
+        $semuaArtikel = $artikelModel->findAll(); 
+
+        <span class="text-pink-400">return</span> $this->render(<span class="text-yellow-300">'artikel/index'</span>, [
+            <span class="text-blue-300">'data_artikel'</span> => $semuaArtikel
+        ]);
+    }
+}
+</pre>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
+                <a href="render.html" class="flex items-center group">
+                    <div class="text-left">
+                        <span class="block text-sm text-gray-400">Previous Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition"><i class="fas fa-arrow-left mr-2"></i> Realtime Rendering</span>
+                    </div>
+                </a>
+                
+                <a href="request-response.html" class="flex items-center group text-right">
+                    <div>
+                        <span class="block text-sm text-gray-400">Next Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition">Request & Response <i class="fas fa-arrow-right ml-2"></i></span>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 LamdaPHP Framework. Developed by Muhammat Rizky Saria.
+        </div>
+    </footer>
+
+</body>
+</html>

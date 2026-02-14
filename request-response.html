@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LamdaPHP Documentation - Request & Response</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-navy { background-color: #0f172a; }
+        .text-navy { color: #0f172a; }
+        .border-navy { border-color: #1e293b; }
+        /* Custom scrollbar untuk code block agar lebih rapi */
+        pre::-webkit-scrollbar { height: 8px; }
+        pre::-webkit-scrollbar-track { background: #0f172a; border-radius: 4px; }
+        pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal text-gray-800">
+
+    <nav class="bg-navy p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <img src="images/logo.png" alt="LamdaPHP Logo" class="h-10 w-10 object-contain">
+                <span class="text-white text-2xl font-bold tracking-tighter">Lamda<span class="text-blue-400">PHP</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="https://github.com/sariariski02/lamdaphp-framework" class="hover:text-white transition"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto flex flex-wrap py-8 px-4">
+        
+        <aside class="w-full md:w-1/4 pr-8 mb-8">
+            <div class="sticky top-24">
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4">Prologue</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="index.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Introduction</a></li>
+                    <li><a href="installation.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Installation</a></li>
+                    <li><a href="directory.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Directory Structure</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">The Basics</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="routing.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Routing</a></li>
+                    <li><a href="controller.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Controllers</a></li>
+                    <li><a href="template.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Views & Templates</a></li>
+                    <li><a href="render.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Realtime Rendering</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">Database</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="model.html" class="block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Model & Database</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">HTTP & Interaksi</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="request-response.html" class="block pl-4 py-1 text-blue-600 border-l-2 border-blue-600 -ml-[2px] font-semibold">Request & Response</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="w-full md:w-3/4">
+            <section id="request-response">
+                <h1 class="text-4xl font-extrabold text-navy mb-4">Request & Response</h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    LamdaPHP menyediakan kelas <code>Request</code> dan <code>Response</code> yang elegan di dalam namespace <code>Lamda\Core\Http</code> untuk mempermudah Anda berinteraksi dengan HTTP Request yang masuk dan mengembalikan Response ke browser.
+                </p>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">1. Mengambil Input (Request)</h3>
+                <p class="text-gray-600 mb-4">
+                    Di dalam Controller, Anda dapat menggunakan objek Request untuk membaca parameter yang dikirim melalui method <code>GET</code>, <code>POST</code>, atau mengambil seluruh data yang diinputkan oleh pengguna.
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                    <div class="flex justify-between items-center bg-slate-900 px-4 py-2 border-b border-slate-700">
+                        <span class="text-xs text-gray-400 font-mono">app/Controllers/UserController.php</span>
+                    </div>
+                    <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-blue-300">
+<span class="text-pink-400">&lt;?php</span>
+
+<span class="text-pink-400">namespace</span> App\Controllers;
+
+<span class="text-pink-400">use</span> Lamda\Core\Http\Controller;
+<span class="text-pink-400">use</span> Lamda\Core\Http\Request;
+
+<span class="text-pink-400">class</span> <span class="text-yellow-300">UserController</span> <span class="text-pink-400">extends</span> Controller
+{
+    <span class="text-pink-400">public function</span> <span class="text-yellow-300">store</span>(Request $request)
+    {
+        <span class="text-gray-500">// Mengambil spesifik input</span>
+        $nama = $request->input(<span class="text-yellow-300">'nama'</span>);
+        $email = $request->input(<span class="text-yellow-300">'email'</span>);
+
+        <span class="text-gray-500">// Mengambil semua data input sebagai array</span>
+        $semuaData = $request->all();
+
+        <span class="text-gray-500">// Lakukan sesuatu dengan data (misal: simpan ke database)</span>
+    }
+}
+</pre>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">2. Menangani Upload File</h3>
+                <p class="text-gray-600 mb-4">
+                    Objek <code>Request</code> juga mempermudah Anda dalam menangani file yang diunggah melalui form (<code>multipart/form-data</code>).
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                    <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-blue-300">
+<span class="text-pink-400">public function</span> <span class="text-yellow-300">uploadAvatar</span>(Request $request)
+{
+    <span class="text-pink-400">if</span> ($request->hasFile(<span class="text-yellow-300">'avatar'</span>)) {
+        $file = $request->file(<span class="text-yellow-300">'avatar'</span>);
+        
+        <span class="text-gray-500">// Pindahkan file ke direktori storage/images</span>
+        $file->move(<span class="text-yellow-300">'storage/images/'</span>, $file->getName());
+        
+        <span class="text-pink-400">return</span> <span class="text-yellow-300">"Upload berhasil!"</span>;
+    }
+
+    <span class="text-pink-400">return</span> <span class="text-yellow-300">"Tidak ada file yang diunggah."</span>;
+}
+</pre>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">3. Mengembalikan JSON Response</h3>
+                <p class="text-gray-600 mb-4">
+                    Jika Anda menggunakan LamdaPHP untuk membuat REST API, Anda seringkali perlu mengembalikan data dalam format JSON. Anda bisa memanfaatkan kelas <code>Response</code> atau langsung menggunakan helper JSON.
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                    <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-blue-300">
+<span class="text-pink-400">public function</span> <span class="text-yellow-300">getApiData</span>()
+{
+    $data = [
+        <span class="text-yellow-300">'status'</span>  => <span class="text-yellow-300">'success'</span>,
+        <span class="text-yellow-300">'message'</span> => <span class="text-yellow-300">'Data berhasil diambil'</span>,
+        <span class="text-yellow-300">'items'</span>   => [<span class="text-yellow-300">'Apel'</span>, <span class="text-yellow-300">'Jeruk'</span>, <span class="text-yellow-300">'Mangga'</span>]
+    ];
+
+    <span class="text-gray-500">// Secara otomatis akan menset header Content-Type: application/json</span>
+    <span class="text-pink-400">return</span> Response::json($data, <span class="text-purple-400">200</span>);
+}
+</pre>
+                    </div>
+                </div>
+
+                 <h3 class="text-2xl font-bold text-navy mb-3">4. Melakukan Redirect</h3>
+                 <p class="text-gray-600 mb-4">
+                     Untuk mengalihkan (redirect) pengguna ke URL atau rute lain (misalnya setelah pengguna berhasil melakukan login), Anda dapat menggunakan metode <code>redirect</code>.
+                 </p>
+ 
+                 <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10">
+                     <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-blue-300">
+<span class="text-pink-400">public function</span> <span class="text-yellow-300">prosesLogin</span>(Request $request)
+{
+    <span class="text-gray-500">// ... logika validasi login ...</span>
+
+    <span class="text-gray-500">// Redirect ke halaman dashboard jika sukses</span>
+    <span class="text-pink-400">return</span> Response::redirect(<span class="text-yellow-300">'/dashboard'</span>);
+}
+</pre>
+                     </div>
+                 </div>
+
+            </section>
+
+            <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
+                <a href="model.html" class="flex items-center group">
+                    <div class="text-left">
+                        <span class="block text-sm text-gray-400">Previous Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition"><i class="fas fa-arrow-left mr-2"></i> Model & Database</span>
+                    </div>
+                </a>
+                
+                <a href="middleware.html" class="flex items-center group text-right">
+                    <div>
+                        <span class="block text-sm text-gray-400">Next Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition">Middleware <i class="fas fa-arrow-right ml-2"></i></span>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 LamdaPHP Framework. Developed by Muhammat Rizky Saria.
+        </div>
+    </footer>
+
+</body>
+</html>
