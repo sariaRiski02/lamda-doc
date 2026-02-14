@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LamdaPHP Documentation - Console & CLI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-navy { background-color: #0f172a; }
+        .text-navy { color: #0f172a; }
+        .border-navy { border-color: #1e293b; }
+        pre::-webkit-scrollbar { height: 8px; }
+        pre::-webkit-scrollbar-track { background: #0f172a; border-radius: 4px; }
+        pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal text-gray-800">
+
+    <nav class="bg-navy p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <img src="images/logo.png" alt="LamdaPHP Logo" class="h-10 w-10 object-contain">
+                <span class="text-white text-2xl font-bold tracking-tighter">Lamda<span class="text-blue-400">PHP</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-300">
+                <a href="https://github.com/sariariski02/lamdaphp-framework" class="hover:text-white transition"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto flex flex-wrap py-8 px-4">
+        
+        <aside class="w-full md:w-1/4 pr-8 mb-8">
+            <div class="sticky top-24">
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4">Prologue</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="index.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Introduction</a></li>
+                    <li><a href="installation.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Installation</a></li>
+                    <li><a href="directory.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Directory Structure</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">The Basics</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="routing.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Routing</a></li>
+                    <li><a href="controller.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Controllers</a></li>
+                    <li><a href="template.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Views & Templates</a></li>
+                    <li><a href="render.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Realtime Rendering</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">Database</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="model.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Model & Database</a></li>
+                </ul>
+
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">HTTP & Interaksi</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="request-response.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Request & Response</a></li>
+                    <li><a href="middleware.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Middleware</a></li>
+                    <li><a href="console.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Console & CLI</a></li>
+                </ul>
+                
+                <h5 class="uppercase text-gray-500 font-bold text-sm mb-4 mt-8">Advanced</h5>
+                <ul class="space-y-2 border-l-2 border-gray-200">
+                    <li><a href="realtime.html" class="menu-link block pl-4 py-1 hover:text-navy transition border-l-2 border-transparent hover:border-gray-300">Realtime Data (SSE)</a></li>
+                </ul>
+            </div>
+        </aside>
+        <main class="w-full md:w-3/4">
+            <section id="console-cli">
+                <h1 class="text-4xl font-extrabold text-navy mb-4">Console & CLI</h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    LamdaPHP hadir dengan tool Command Line Interface (CLI) bawaan yang sangat kuat. File <em>executable</em> <code>lamda</code> yang berada di root direktori proyek Anda berfungsi untuk mempercepat proses pengembangan melalui fitur pembuat kode otomatis (<em>scaffolding</em>).
+                </p>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">1. Menggunakan CLI</h3>
+                <p class="text-gray-600 mb-4">
+                    Untuk menggunakan CLI LamdaPHP, buka terminal atau command prompt Anda, pastikan Anda berada di direktori utama proyek, dan jalankan perintah menggunakan PHP:
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10 p-4 flex items-center gap-3">
+                    <span class="text-green-400 font-mono text-lg">➜</span>
+                    <span class="text-blue-300 font-mono text-base">my-lamda-app</span>
+                    <code class="text-yellow-300 font-mono text-base ml-2">php lamda [perintah]</code>
+                </div>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">2. Perintah Generator (Make)</h3>
+                <p class="text-gray-600 mb-4">
+                    Saat ini, Kernel konsol LamdaPHP menyediakan tiga perintah sakti yang akan menghemat waktu Anda dalam menulis kode boilerplate dari awal (seperti namespace, class, dan inheritance).
+                </p>
+
+                <div class="space-y-6 mb-10">
+                    <div class="border border-gray-200 rounded-lg p-5 bg-white shadow-sm">
+                        <h4 class="font-bold text-lg text-navy mb-2">Membuat Controller</h4>
+                        <p class="text-gray-600 text-sm mb-3">Menghasilkan file Controller baru di dalam <code>app/Controllers/</code>.</p>
+                        <div class="bg-slate-900 rounded p-3 text-sm font-mono text-gray-300">
+                            $ php lamda <span class="text-green-400">make:controller</span> <span class="text-yellow-300">NamaController</span>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-5 bg-white shadow-sm">
+                        <h4 class="font-bold text-lg text-navy mb-2">Membuat Model</h4>
+                        <p class="text-gray-600 text-sm mb-3">Menghasilkan file Model baru di dalam <code>app/Models/</code> yang langsung mewarisi Core Model.</p>
+                        <div class="bg-slate-900 rounded p-3 text-sm font-mono text-gray-300">
+                            $ php lamda <span class="text-green-400">make:model</span> <span class="text-yellow-300">NamaModel</span>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-5 bg-white shadow-sm">
+                        <h4 class="font-bold text-lg text-navy mb-2">Membuat Middleware</h4>
+                        <p class="text-gray-600 text-sm mb-3">Menghasilkan file Middleware baru beserta fungsi <code>handle()</code> di dalam <code>app/Middleware/</code>.</p>
+                        <div class="bg-slate-900 rounded p-3 text-sm font-mono text-gray-300">
+                            $ php lamda <span class="text-green-400">make:middleware</span> <span class="text-yellow-300">NamaMiddleware</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold text-navy mb-3">3. Menjalankan Server Development</h3>
+                <p class="text-gray-600 mb-4">
+                    Karena LamdaPHP dibangun dengan sangat ringan, Anda tidak perlu web server rumit seperti Apache atau Nginx untuk tahap *development*. Cukup gunakan server bawaan PHP yang diarahkan ke folder <code>public/</code> Anda.
+                </p>
+
+                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10 p-4 flex items-center gap-3">
+                    <span class="text-gray-400 font-mono text-lg">$</span>
+                    <code class="text-yellow-300 font-mono text-base">php -S localhost:8000 -t public</code>
+                </div>
+                <p class="text-gray-600 -mt-6">
+                    Aplikasi Anda kini dapat diakses melalui browser di alamat <a href="http://localhost:8000" class="text-blue-600 hover:underline">http://localhost:8000</a>.
+                </p>
+
+            </section>
+
+            <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
+                <a href="middleware.html" class="flex items-center group">
+                    <div class="text-left">
+                        <span class="block text-sm text-gray-400">Previous Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition"><i class="fas fa-arrow-left mr-2"></i> Middleware</span>
+                    </div>
+                </a>
+                
+                <a href="realtime.html" class="flex items-center group text-right">
+                    <div>
+                        <span class="block text-sm text-gray-400">Next Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition">Realtime Data (SSE) <i class="fas fa-arrow-right ml-2"></i></span>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 LamdaPHP Framework. Developed by Muhammat Rizky Saria.
+        </div>
+    </footer>
+
+<script src="/script.js"></script>
+</body>
+</html>
