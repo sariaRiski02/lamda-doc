@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LamdaPHP Documentation - Console & CLI</title>
+    <title>LamdaPHP Documentation - Logging</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .bg-navy { background-color: #0f172a; }
         .text-navy { color: #0f172a; }
         .border-navy { border-color: #1e293b; }
+        /* Custom scrollbar untuk code block agar lebih rapi */
         pre::-webkit-scrollbar { height: 8px; }
         pre::-webkit-scrollbar-track { background: #0f172a; border-radius: 4px; }
         pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
@@ -31,7 +32,7 @@
 
     <div class="container mx-auto flex flex-wrap py-8 px-4">
         
-        <aside class="w-full md:w-1/4 pr-8 mb-8">
+       <aside class="w-full md:w-1/4 pr-8 mb-8">
     <div class="sticky top-24">
         <h5 class="uppercase text-gray-500 font-bold text-sm mb-4">Prologue</h5>
         <ul class="space-y-2 border-l-2 border-gray-200">
@@ -69,82 +70,102 @@
     </div>
 </aside>
 
+
         <main class="w-full md:w-3/4">
-            <section id="console-cli">
-                <h1 class="text-4xl font-extrabold text-navy mb-4">Console & CLI</h1>
-                <p class="text-lg text-gray-600 mb-8">
-                    LamdaPHP hadir dengan tool Command Line Interface (CLI) bawaan yang sangat kuat. File <em>executable</em> <code>lamda</code> yang berada di root direktori proyek Anda berfungsi untuk mempercepat proses pengembangan melalui fitur pembuat kode otomatis (<em>scaffolding</em>).
-                </p>
+            <section class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-8">
+    
+    <!-- Header -->
+    <div class="border-b border-slate-700 px-6 py-4">
+        <h2 class="text-xl font-semibold text-white">
+            Log Writing
+        </h2>
+        <p class="text-slate-400 mt-1 text-sm">
+            Mencatat pesan log ke sistem logging LamdaPHP.
+        </p>
+    </div>
 
-                <h3 class="text-2xl font-bold text-navy mb-3">1. Menggunakan CLI</h3>
-                <p class="text-gray-600 mb-4">
-                    Untuk menggunakan CLI LamdaPHP, buka terminal atau command prompt Anda, pastikan Anda berada di direktori utama proyek, dan jalankan perintah menggunakan PHP:
-                </p>
+    <!-- Content -->
+    <div class="p-6 space-y-6 text-slate-300 leading-relaxed">
 
-                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10 p-4 flex items-center gap-3">
-                    <span class="text-green-400 font-mono text-lg">➜</span>
-                    <span class="text-blue-300 font-mono text-base">my-lamda-app</span>
-                    <code class="text-yellow-300 font-mono text-base ml-2">php lamda [perintah]</code>
-                </div>
+        <p>
+            LamdaPHP menyediakan sistem logging sederhana untuk membantu developer
+            mencatat informasi penting selama proses aplikasi berjalan.
+            Logging dapat digunakan untuk debugging, monitoring aktivitas,
+            atau mencatat error sistem.
+        </p>
 
-                <h3 class="text-2xl font-bold text-navy mb-3">2. Perintah Generator (Make)</h3>
-                <p class="text-gray-600 mb-4">
-                    Saat ini, Kernel konsol LamdaPHP menyediakan tiga perintah sakti yang akan menghemat waktu Anda dalam menulis kode boilerplate dari awal (seperti namespace, class, dan inheritance).
-                </p>
+        <div>
+            <p class="mb-2 font-medium text-slate-200">Gunakan method berikut:</p>
 
-                <div class="space-y-6 mb-10">
-                    <div class="border border-gray-200 rounded-lg p-5 bg-white shadow-sm">
-                        <h4 class="font-bold text-lg text-navy mb-2">Membuat Controller</h4>
-                        <p class="text-gray-600 text-sm mb-3">Menghasilkan file Controller baru di dalam <code>app/Controllers/</code>.</p>
-                        <div class="bg-slate-900 rounded p-3 text-sm font-mono text-gray-300">
-                            $ php lamda <span class="text-green-400">make:controller</span> <span class="text-yellow-300">NamaController</span>
-                        </div>
-                    </div>
+            <div class="bg-slate-900 rounded-md px-4 py-3 font-mono text-sm text-emerald-400">
+                Log::write(string $message)
+            </div>
+        </div>
 
-                    <div class="border border-gray-200 rounded-lg p-5 bg-white shadow-sm">
-                        <h4 class="font-bold text-lg text-navy mb-2">Membuat Model</h4>
-                        <p class="text-gray-600 text-sm mb-3">Menghasilkan file Model baru di dalam <code>app/Models/</code> yang langsung mewarisi Core Model.</p>
-                        <div class="bg-slate-900 rounded p-3 text-sm font-mono text-gray-300">
-                            $ php lamda <span class="text-green-400">make:model</span> <span class="text-yellow-300">NamaModel</span>
-                        </div>
-                    </div>
+        <p>
+            Method ini akan menulis pesan ke file log aplikasi yang dapat digunakan
+            untuk analisis atau debugging.
+        </p>
 
-                    <div class="border border-gray-200 rounded-lg p-5 bg-white shadow-sm">
-                        <h4 class="font-bold text-lg text-navy mb-2">Membuat Middleware</h4>
-                        <p class="text-gray-600 text-sm mb-3">Menghasilkan file Middleware baru beserta fungsi <code>handle()</code> di dalam <code>app/Middleware/</code>.</p>
-                        <div class="bg-slate-900 rounded p-3 text-sm font-mono text-gray-300">
-                            $ php lamda <span class="text-green-400">make:middleware</span> <span class="text-yellow-300">NamaMiddleware</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Example -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-3">
+                Contoh Penggunaan
+            </h3>
 
-                <h3 class="text-2xl font-bold text-navy mb-3">3. Menjalankan Server Development</h3>
-                <p class="text-gray-600 mb-4">
-                    Karena LamdaPHP dibangun dengan sangat ringan, Anda tidak perlu web server rumit seperti Apache atau Nginx untuk tahap *development*. Cukup gunakan server bawaan PHP yang diarahkan ke folder <code>public/</code> Anda.
-                </p>
+            <div class="bg-slate-900 rounded-md p-4 overflow-x-auto">
+<pre class="text-sm text-slate-300"><code class="language-php">Log::write('User berhasil login');
 
-                <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-10 p-4 flex items-center gap-3">
-                    <span class="text-gray-400 font-mono text-lg">$</span>
-                    <code class="text-yellow-300 font-mono text-base">php -S localhost:8000 -t public</code>
-                </div>
-                <p class="text-gray-600 -mt-6">
-                    Aplikasi Anda kini dapat diakses melalui browser di alamat <a href="http://localhost:8000" class="text-blue-600 hover:underline">http://localhost:8000</a>.
-                </p>
+Log::write('Data announcement berhasil dibuat');
 
+Log::write('Terjadi error saat memproses pembayaran');</code></pre>
+            </div>
+        </div>
+
+        <!-- Use cases -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-3">
+                Kapan Digunakan?
+            </h3>
+
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+                <li>Mencatat aktivitas sistem</li>
+                <li>Menyimpan informasi debugging</li>
+                <li>Mencatat error atau exception</li>
+                <li>Monitoring proses penting aplikasi</li>
+            </ul>
+        </div>
+
+        <!-- Behavior -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-3">
+                Cara Kerja
+            </h3>
+
+            <ol class="list-decimal list-inside space-y-2 text-slate-300">
+                <li>Developer memanggil <code class="bg-slate-900 px-2 py-1 rounded text-amber-400">Log::write()</code></li>
+                <li>Pesan diterima oleh sistem logging LamdaPHP</li>
+                <li>Pesan ditulis ke file log aplikasi</li>
+                <li>File log dapat dibaca untuk analisis atau debugging</li>
+            </ol>
+        </div>
+
+    </div>
             </section>
 
+
             <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
-                <a href="middleware.html" class="flex items-center group">
+                <a href="request-response.html" class="flex items-center group">
                     <div class="text-left">
                         <span class="block text-sm text-gray-400">Previous Step</span>
-                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition"><i class="fas fa-arrow-left mr-2"></i> Middleware</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition"><i class="fas fa-arrow-left mr-2"></i> Request & Response</span>
                     </div>
                 </a>
                 
-                <a href="realtime.html" class="flex items-center group text-right">
+                <a href="console.html" class="flex items-center group text-right">
                     <div>
                         <span class="block text-sm text-gray-400">Next Step</span>
-                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition">Realtime Data (SSE) <i class="fas fa-arrow-right ml-2"></i></span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition">Console & CLI <i class="fas fa-arrow-right ml-2"></i></span>
                     </div>
                 </a>
             </div>
@@ -156,7 +177,6 @@
             &copy; 2026 LamdaPHP Framework. Developed by Muhammat Rizky Saria.
         </div>
     </footer>
-
-<script src="/script.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>
