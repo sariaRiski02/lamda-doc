@@ -181,17 +181,109 @@
                 </div>
             </section>
 
+        <section class="bg-slate-800 rounded-lg shadow-lg overflow-hidden mb-8">
+    
+    <!-- Header -->
+    <div class="border-b border-slate-700 px-6 py-4">
+        <h2 class="text-xl font-semibold text-white">
+            Triggering Realtime Update
+        </h2>
+        <p class="text-slate-400 mt-1 text-sm">
+            Cara mengirim event dari server agar client melakukan realtime render ulang.
+        </p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6 space-y-6 text-slate-300 leading-relaxed">
+
+        <p>
+            Realtime rendering di LamdaPHP tidak berjalan otomatis ketika data berubah.
+            Developer harus mengirim trigger event dari server agar client mengetahui bahwa
+            terdapat perubahan data yang perlu dirender ulang.
+        </p>
+
+        <div>
+            <p class="mb-2 font-medium text-slate-200">Gunakan method berikut:</p>
+
+            <div class="bg-slate-900 rounded-md px-4 py-3 font-mono text-sm text-emerald-400">
+                EventDispatcher::dispatch();
+            </div>
+        </div>
+
+        <p>
+            Method ini akan mencatat event ke 
+            <code class="bg-slate-900 px-2 py-1 rounded text-amber-400">event.queue</code>
+            dan memberi sinyal kepada semua client yang sedang terkoneksi realtime bahwa
+            terdapat perubahan data.
+        </p>
+
+        <!-- Example -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-3">
+                Contoh Penggunaan
+            </h3>
+
+            <div class="bg-slate-900 rounded-md p-4 overflow-x-auto">
+<pre class="text-sm text-slate-300"><code class="language-php">public function store(){
+    $input = Request::input();
+    Annoncement::create($input);
+
+    // Trigger realtime update ke client
+    EventDispatcher::dispatch();
+
+    return $this->redirect('/dashboard');
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Process -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-3">
+                Bagaimana Prosesnya?
+            </h3>
+
+            <ol class="list-decimal list-inside space-y-2 text-slate-300">
+                <li>Server menyimpan atau mengubah data</li>
+                <li>EventDispatcher::dispatch() dipanggil</li>
+                <li>Event dicatat di <code class="bg-slate-900 px-2 py-1 rounded text-amber-400">event.queue</code></li>
+                <li>Koneksi realtime (SSE) mendeteksi event baru</li>
+                <li>Client menerima sinyal update</li>
+                <li>Client melakukan realtime request ke server</li>
+                <li>Controller menjalankan blok <code class="bg-slate-900 px-2 py-1 rounded text-amber-400">Request::realtime()</code></li>
+                <li>Server mengirim partial HTML terbaru</li>
+                <li>HTML diinject ke DOM tanpa reload halaman</li>
+            </ol>
+        </div>
+
+        <!-- When -->
+        <div>
+            <h3 class="text-lg font-semibold text-white mb-3">
+                Kapan Harus Memanggil Dispatch?
+            </h3>
+
+            <ul class="list-disc list-inside space-y-1 text-slate-300">
+                <li>Setelah create data</li>
+                <li>Setelah update data</li>
+                <li>Setelah delete data</li>
+                <li>Setiap perubahan yang mempengaruhi tampilan realtime</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+
             <div class="flex justify-between mt-16 pt-8 border-t border-gray-200">
-                <a href="views.html" class="flex items-center group">
+                <a href="template.html" class="flex items-center group">
                     <div>
                         <span class="block text-sm text-gray-400">Previous</span>
                         <span class="block text-lg font-bold text-navy group-hover:text-blue-600"><i class="fas fa-arrow-left mr-2"></i> Views & Templates</span>
                     </div>
                 </a>
-                <a href="#" class="flex items-center group text-right opacity-50 cursor-not-allowed">
+                <a href="model.html" class="flex items-center group text-right">
                     <div>
-                        <span class="block text-sm text-gray-400">Next</span>
-                        <span class="block text-lg font-bold text-navy">CLI Command (Coming Soon)</span>
+                        <span class="block text-sm text-gray-400">Next Step</span>
+                        <span class="block text-lg font-bold text-navy group-hover:text-blue-600 transition">Model & Database <i class="fas fa-arrow-right ml-2"></i></span>
                     </div>
                 </a>
             </div>
